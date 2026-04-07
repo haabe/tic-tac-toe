@@ -1,0 +1,129 @@
+# Opportunity Solution Tree Canvas — Teresa Torres
+# Source: "Continuous Discovery Habits"
+# Populated through: /ost-builder skill
+
+# Root: The desired outcome (from North Star input metrics)
+desired_outcome:
+  metric: "Rematch rate"
+  current_value: null
+  target_value: null
+
+opportunities:
+  - name: "Remote play connection"
+    description: "Enable two players to play tic-tac-toe across devices without accounts, using time-limited secret codes"
+    type: emotional
+    evidence:
+      type: anecdotal
+      sources:
+        - "Founder interview: father and son can't play when apart (work travel, late nights)"
+      interview_count: 1
+    frequency: high
+    impact: high
+    strategic_alignment: high
+    cynefin_domain: complicated
+    sub_opportunities:
+      - name: "Solo play anytime"
+        description: "Play against CPU when no human opponent is available"
+        type: functional
+        evidence:
+          type: anecdotal
+          sources:
+            - "Founder interview: son plays physical tic-tac-toe and needs an opponent"
+          interview_count: 1
+        frequency: high
+        impact: medium
+        strategic_alignment: medium
+        cynefin_domain: clear
+        sub_opportunities: []
+        solutions:
+          - name: "vs CPU game mode"
+            description: "Single-player mode against a CPU opponent with appropriate difficulty for ages 5+"
+            ice_score:
+              impact: 7
+              confidence: 8
+              ease: 9
+              total: 8.0
+            confidence_level: 0.5
+            assumptions:
+              - statement: "A 5-year-old can understand and play vs CPU without help"
+                type: usability
+                importance: high
+                evidence: low
+                tested: false
+                result: ""
+              - statement: "CPU difficulty can be tuned to be fun for both a 5yo and a 10yo"
+                type: desirability
+                importance: medium
+                evidence: low
+                tested: false
+                result: ""
+            experiments: []
+      - name: "Local shared play"
+        description: "Two players on the same device taking turns"
+        type: social
+        evidence:
+          type: anecdotal
+          sources:
+            - "Founder interview: currently play side-by-side with physical materials"
+          interview_count: 1
+        frequency: medium
+        impact: low
+        strategic_alignment: low
+        cynefin_domain: clear
+        sub_opportunities: []
+        solutions:
+          - name: "Local 2-player mode"
+            description: "Pass-and-play on a single device"
+            ice_score:
+              impact: 4
+              confidence: 9
+              ease: 10
+              total: 7.7
+            confidence_level: 0.5
+            assumptions:
+              - statement: "Users will prefer this over just using pen and paper when together"
+                type: desirability
+                importance: medium
+                evidence: low
+                tested: false
+                result: ""
+            experiments: []
+    solutions:
+      - name: "Online 2-player with secret codes"
+        description: "Real-time online play connected via time-limited, one-time secret codes. No accounts, no data stored."
+        ice_score:
+          impact: 10
+          confidence: 6
+          ease: 5
+          total: 7.0
+        confidence_level: 0.3
+        assumptions:
+          - statement: "A child can share a code with a parent (e.g. read it out loud, text it)"
+            type: usability
+            importance: high
+            evidence: medium
+            tested: false
+            result: ""
+          - statement: "WebSocket-based real-time sync will feel instant enough to be fun"
+            type: feasibility
+            importance: high
+            evidence: medium
+            tested: false
+            result: ""
+          - statement: "Free-tier European hosting can support WebSocket connections"
+            type: viability
+            importance: high
+            evidence: low
+            tested: false
+            result: ""
+        experiments: []
+
+bias_checks:
+  - date: "2026-04-07"
+    biases_mitigated:
+      - "Builder's bias: acknowledged we're building for ourselves — mitigated by defining age 5+ target"
+      - "Single-source: only 1 interview, but it covers the full user base for this personal project"
+    research_design_adjustments:
+      - "Will validate usability assumptions during delivery with the actual target user (10yo son)"
+
+last_updated: "2026-04-07"

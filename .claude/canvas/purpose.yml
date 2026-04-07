@@ -1,0 +1,40 @@
+# Purpose Canvas — Sinek's Golden Circle
+# Source: "Start with Why" by Simon Sinek
+# Populated through: /interview skill (Phase 1)
+
+# WHY: The organization's purpose, cause, or belief.
+# Not "to make money" — that's a result, not a cause.
+why: "Enable people to stay connected through play, even when they can't be in the same place. Also serves as a validation exercise for the Mycelium product development framework."
+
+# HOW: Guiding principles that differentiate your approach.
+# 3-5 principles that express HOW you live your Why.
+how:
+  - principle: "Zero friction"
+    description: "A 5-year-old must be able to start playing without help or instruction"
+  - principle: "No exploitation"
+    description: "No ads, no data collection, no purchases — ever"
+  - principle: "Connection through simplicity"
+    description: "Online play via time-limited secret codes, no accounts needed"
+
+# WHAT: Products, services, or offerings that express the Why.
+what:
+  - name: "Tic-Tac-Toe Webapp"
+    description: "Classical tic-tac-toe with three modes: vs CPU, local 2-player, online 2-player. Designed for ages 5+, intuitive and fun."
+
+# Ethical boundaries: What this product will NEVER do.
+# Defined at purpose level — non-negotiable.
+ethical_boundaries:
+  - "No advertising of any kind"
+  - "No data collection or tracking"
+  - "No in-app purchases or monetization"
+  - "No account creation or login requirements"
+
+# Evidence: What supports this purpose statement?
+evidence:
+  sources:
+    - type: "founder_interview"
+      summary: "Solo developer wants to play tic-tac-toe with his 10-year-old son across devices when they can't be together (work travel, late evenings). Son already loves physical tic-tac-toe (paper, magnets, sticks in sand)."
+      date: "2026-04-07"
+  confidence: 0.7
+
+last_validated: "2026-04-07"

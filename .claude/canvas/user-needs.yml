@@ -1,0 +1,68 @@
+# User Needs Mapping Canvas — Rich Allen
+# Source: User Needs Mapping (connected to Wardley Mapping & Team Topologies)
+# Populated through: /interview and discovery work
+
+user_types:
+  - name: "Parent"
+    description: "Adult (e.g. 49yo developer) who wants to play with their child"
+    context: "Away from home on work travel, or at home late at night when outdoor play isn't an option"
+  - name: "Child"
+    description: "Young player (e.g. 10yo boy) who loves tic-tac-toe in all forms"
+    context: "At home on phone or PC, wants to play with parent or solo"
+
+needs:
+  - user_type: "Child"
+    need_statement: "As a child, I need to start playing immediately without reading instructions, so that I can jump straight into the fun"
+    type: functional
+    importance: 10
+    current_satisfaction: 9
+    state: met
+    evidence_sources:
+      - type: "interview"
+        summary: "Physical tic-tac-toe has zero friction — this must match it"
+        date: "2026-04-07"
+  - user_type: "Parent"
+    need_statement: "As a parent, I need to play with my child remotely, so that we can stay connected when apart"
+    type: emotional
+    importance: 10
+    current_satisfaction: 1
+    state: underserved
+    evidence_sources:
+      - type: "interview"
+        summary: "No current solution for remote play — only physical options exist"
+        date: "2026-04-07"
+  - user_type: "Child"
+    need_statement: "As a child, I need a fun opponent when no one is available, so that I can play anytime I want"
+    type: functional
+    importance: 7
+    current_satisfaction: 1
+    state: underserved
+    evidence_sources:
+      - type: "interview"
+        summary: "Physical play requires another person present"
+        date: "2026-04-07"
+  - user_type: "Parent"
+    need_statement: "As a parent, I need the game to be safe and private, so that I can trust my child using it unsupervised"
+    type: emotional
+    importance: 9
+    current_satisfaction: 3
+    state: underserved
+    evidence_sources:
+      - type: "interview"
+        summary: "No ads, no data collection, no purchases — explicit ethical boundaries"
+        date: "2026-04-07"
+
+opportunity_areas:
+  - name: "Remote play connection"
+    needs_included:
+      - "Play with child remotely"
+      - "Stay connected when apart"
+    underserved_score: 9
+    strategic_fit: "Core purpose — this is the primary reason the product exists"
+  - name: "Solo play anytime"
+    needs_included:
+      - "Fun opponent when no one is available"
+    underserved_score: 6
+    strategic_fit: "Supports engagement when remote partner isn't available"
+
+last_updated: "2026-04-07"

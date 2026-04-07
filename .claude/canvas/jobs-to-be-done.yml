@@ -1,0 +1,78 @@
+# Jobs to be Done Canvas — Clayton Christensen / Tony Ulwick
+# Source: "The Innovator's Dilemma", Outcome-Driven Innovation
+# Populated through: /jtbd-map skill and /interview
+
+# Jobs: What users are "hiring" this product to do
+jobs:
+  - job_statement: "When I want to play tic-tac-toe, I want to start a game instantly on any device, so I can play without setup or materials"
+    type: functional
+    hiring_criteria:
+      - "Instant start — no signup, no download friction"
+      - "Works on phone and PC"
+      - "Multiple game modes (solo, local, online)"
+    firing_criteria:
+      - "Slow to load or start"
+      - "Requires account creation"
+      - "Confusing interface"
+    current_solutions:
+      - "Pen and paper"
+      - "Magnets on a metal sheet with drawn grid"
+      - "Sticks and stones with grid drawn in sand"
+    underserved_outcomes:
+      - outcome: "Play without needing to be in the same physical location"
+        importance: 9
+        satisfaction_with_current: 1
+        opportunity_score: 17
+    evidence_sources:
+      - type: interview
+        summary: "Father and son currently play with physical materials only — no digital solution in use"
+        date: "2026-04-07"
+
+  - job_statement: "When my son and I are apart, I want to play a game together remotely, so I can feel connected to him"
+    type: emotional
+    hiring_criteria:
+      - "Easy to share a game link/code"
+      - "Real-time play that feels like being together"
+      - "Fun and engaging enough to want to play again"
+    firing_criteria:
+      - "Connection feels laggy or broken"
+      - "Too complicated to set up the online session"
+    current_solutions:
+      - "No current solution — they only play when physically together"
+    underserved_outcomes:
+      - outcome: "Feel close to family member despite physical distance"
+        importance: 10
+        satisfaction_with_current: 1
+        opportunity_score: 19
+    evidence_sources:
+      - type: interview
+        summary: "Developer travels for work; son can't play in the sand late at night. Distance and timing are barriers to their shared activity."
+        date: "2026-04-07"
+
+  - job_statement: "When we play together remotely, I want it to feel like a shared moment, so we can maintain our bond"
+    type: social
+    hiring_criteria:
+      - "Both players experience the game simultaneously"
+      - "Simple enough that a child leads the interaction"
+    firing_criteria:
+      - "Feels isolating rather than connected"
+    current_solutions:
+      - "No current solution for remote play"
+    underserved_outcomes:
+      - outcome: "Share a fun competitive moment across distance"
+        importance: 9
+        satisfaction_with_current: 1
+        opportunity_score: 17
+    evidence_sources:
+      - type: interview
+        summary: "The game choice is driven by the son's existing love for tic-tac-toe — it's their shared activity"
+        date: "2026-04-07"
+
+non_consumption:
+  identified: true
+  segments:
+    - description: "Parent-child pairs who play physical tic-tac-toe but have no way to play when apart"
+      barrier: "Existing digital tic-tac-toe apps don't prioritize simple, private, no-account remote play"
+      evidence: "Interview: currently only play with physical materials, no digital solution adopted"
+
+last_updated: "2026-04-07"

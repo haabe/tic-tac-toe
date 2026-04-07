@@ -1,0 +1,31 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# JiT generated files (stack-specific, regenerated per project)
+.claude/jit-tooling/active-stack.yml
+
+# Eval results (generated per run, not part of the boilerplate)
+.claude/evals/results/*.json
+
+# Optimization results (generated per run)
+.claude/optimization/results/*.json
+.claude/optimization/baseline.json
+.claude/optimization/exemplars/
+
+# Preflight stamp (temporary, per-session)
+/tmp/mycelium-preflight-stamp
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+dist-server/

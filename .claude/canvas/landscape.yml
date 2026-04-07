@@ -1,0 +1,80 @@
+# Wardley Map Canvas — Simon Wardley
+# Source: Wardley Mapping methodology
+# Populated through: /wardley-map skill
+
+# User needs at the top of the value chain (most visible to users)
+user_needs:
+  - name: "Play tic-tac-toe"
+    description: "Start and complete a game of tic-tac-toe with minimal friction"
+  - name: "Play remotely"
+    description: "Connect with another player across devices without accounts"
+  - name: "Play solo"
+    description: "Play against CPU when no human opponent is available"
+
+# Components in the value chain
+components:
+  - name: "Game UI"
+    visibility: high
+    evolution_stage: commodity
+    cynefin_domain: clear
+    dependencies: ["Game Logic"]
+    strategic_play: "build"
+    notes: "Tic-tac-toe UI is well-understood. Focus on child-friendly design (age 5+)."
+  - name: "Game Logic"
+    visibility: low
+    evolution_stage: commodity
+    cynefin_domain: clear
+    dependencies: []
+    strategic_play: "build"
+    notes: "Tic-tac-toe rules are trivial. CPU opponent is the only non-trivial part."
+  - name: "CPU Opponent"
+    visibility: medium
+    evolution_stage: product
+    cynefin_domain: clear
+    dependencies: ["Game Logic"]
+    strategic_play: "build"
+    notes: "Minimax algorithm is well-known. May need difficulty levels for a 5-year-old."
+  - name: "Online Multiplayer"
+    visibility: high
+    evolution_stage: custom
+    cynefin_domain: complicated
+    dependencies: ["Game Logic", "Signaling Server", "Secret Code System"]
+    strategic_play: "build"
+    notes: "Real-time game state sync between two players. Main technical challenge."
+  - name: "Secret Code System"
+    visibility: high
+    evolution_stage: custom
+    cynefin_domain: complicated
+    dependencies: ["Signaling Server"]
+    strategic_play: "build"
+    notes: "Time-limited codes for connecting players. No accounts. Privacy-first."
+  - name: "Signaling Server"
+    visibility: low
+    evolution_stage: product
+    cynefin_domain: complicated
+    dependencies: ["Hosting"]
+    strategic_play: "build"
+    notes: "WebSocket or similar for real-time communication. Node.js."
+  - name: "React Frontend"
+    visibility: low
+    evolution_stage: commodity
+    cynefin_domain: clear
+    dependencies: []
+    strategic_play: "build"
+    notes: "TypeScript + React. Developer's strongest stack."
+  - name: "Hosting"
+    visibility: low
+    evolution_stage: commodity
+    cynefin_domain: clear
+    dependencies: []
+    strategic_play: "buy"
+    notes: "Free tier, Europe-based. Candidates: Vercel, Railway, Fly.io, Render."
+
+movements: []
+
+gameplay:
+  - type: "open_source"
+    description: "Project is open source (MIT license). No competitive moat needed — purpose is personal and educational."
+    components_affected: ["Game UI", "Game Logic", "Online Multiplayer"]
+
+last_updated: "2026-04-07"

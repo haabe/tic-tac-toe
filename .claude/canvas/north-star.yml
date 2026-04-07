@@ -1,0 +1,42 @@
+# North Star Framework Canvas
+# Source: Amplitude North Star Framework, Sean Ellis
+# Populated through: /interview skill (Phase 2)
+
+# The single metric that captures the core value users get from the product.
+# Must be: a leading indicator, actionable, value-expressing, measurable.
+metric:
+  name: "Rematch rate"
+  definition: "Percentage of completed games followed by another game in the same session"
+  current_value: null
+  target_value: null
+  measurement_frequency: "weekly"
+
+# Input metrics: 3-5 levers that directly drive the North Star.
+input_metrics:
+  - name: "Game completion rate"
+    definition: "Percentage of started games that are played to conclusion (win or draw)"
+    owner: "solo developer"
+    current_value: null
+    target_value: null
+    category: "engagement"
+  - name: "Online connection success rate"
+    definition: "Percentage of shared secret codes that result in a completed game"
+    owner: "solo developer"
+    current_value: null
+    target_value: null
+    category: "activation"
+
+# Trust dimension: How trust/safety is measured.
+trust_dimension:
+  metric: "Zero data collected — verifiable by absence of any analytics, tracking, or storage of personal data"
+  current_value: null
+  target_value: null
+
+# Guardrail metrics: Things that must NOT degrade while optimizing the North Star.
+guardrails:
+  - name: "Time to first move"
+    threshold: "Under 10 seconds from page load to first move in any game mode"
+  - name: "Child usability"
+    threshold: "A 5-year-old can start and complete a game without adult help"
+
+last_updated: "2026-04-07"

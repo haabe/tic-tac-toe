@@ -1,0 +1,302 @@
+.game-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.difficulty-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.difficulty-btn {
+  font-size: 1.1rem;
+  padding: 10px 24px;
+  border: 2px solid var(--cell-border);
+  border-radius: 12px;
+  background: var(--cell-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  min-width: 100px;
+}
+
+.difficulty-btn:hover {
+  background: var(--cell-hover);
+}
+
+.difficulty-btn:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.difficulty-btn[aria-pressed="true"] {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border-color: var(--button-bg);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+}
+
+.cell {
+  aspect-ratio: 1;
+  border: 3px solid var(--cell-border);
+  border-radius: 16px;
+  background: var(--cell-bg);
+  font-size: 3.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1;
+}
+
+.cell:hover:not(:disabled) {
+  background: var(--cell-hover);
+  transform: scale(1.03);
+}
+
+.cell:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell.x {
+  color: var(--x-color);
+}
+
+.cell.o {
+  color: var(--o-color);
+}
+
+.cell.winning {
+  background: var(--winning-cell);
+  animation: pulse 0.6s ease-in-out 2;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.08); }
+}
+
+.status {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 12px;
+}
+
+.status.won {
+  background: var(--win-bg);
+}
+
+.status.draw {
+  background: var(--draw-bg);
+}
+
+.play-again {
+  font-size: 1.2rem;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 14px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.play-again:hover {
+  background: var(--button-hover);
+  transform: scale(1.03);
+}
+
+.play-again:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.mode-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.mode-btn {
+  font-size: 1.2rem;
+  padding: 16px 24px;
+  border: 2px solid var(--cell-border);
+  border-radius: 14px;
+  background: var(--cell-bg);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.mode-btn:hover:not(:disabled) {
+  background: var(--cell-hover);
+  transform: scale(1.03);
+}
+
+.mode-btn:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.mode-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.back-btn {
+  align-self: flex-start;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.back-btn:hover {
+  background: var(--cell-hover);
+}
+
+.back-btn:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.online-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 280px;
+  align-items: center;
+}
+
+.join-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+}
+
+.code-input {
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 12px;
+  border: 3px solid var(--cell-border);
+  border-radius: 14px;
+  background: var(--cell-bg);
+  color: var(--text);
+  width: 100%;
+  letter-spacing: 0.3em;
+  font-weight: 700;
+  font-family: inherit;
+}
+
+.code-input:focus {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--focus-ring);
+}
+
+.code-input::placeholder {
+  letter-spacing: normal;
+  font-weight: 400;
+  opacity: 0.5;
+}
+
+.waiting-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.game-code {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--text);
+  padding: 16px 24px;
+  border: 3px solid var(--cell-border);
+  border-radius: 16px;
+  background: var(--cell-bg);
+  user-select: all;
+}
+
+.code-hint {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.player-badge {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.player-badge .x {
+  color: var(--x-color);
+}
+
+.player-badge .o {
+  color: var(--o-color);
+}
+
+.status.error {
+  background: #ffe0e0;
+  color: #c00;
+}
+
+@media (prefers-color-scheme: dark) {
+  .status.error {
+    background: #3d1f1f;
+    color: #ff6b6b;
+  }
+}
+
+.rematch-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell.winning {
+    animation: none;
+  }
+  .cell:hover:not(:disabled),
+  .play-again:hover,
+  .mode-btn:hover:not(:disabled) {
+    transform: none;
+  }
+}
