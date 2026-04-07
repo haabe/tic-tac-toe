@@ -8,6 +8,7 @@ interface Game {
   moves: { index: number; player: 'X' | 'O' }[]
   createdAt: number
   rematchVotes: Set<'X' | 'O'>
+  roundNumber: number
 }
 
 const CODE_EXPIRY_MS = 5 * 60 * 1000 // 5 minutes
@@ -85,6 +86,7 @@ function handleMessage(ws: WebSocket, data: string, clientIp: string) {
         moves: [],
         createdAt: Date.now(),
         rematchVotes: new Set(),
+        roundNumber: 0,
       }
       games.set(code, game)
       socketToGame.set(ws, { code, player: 'X' })
@@ -143,8 +145,10 @@ function handleMessage(ws: WebSocket, data: string, clientIp: string) {
       const index = msg.index
       if (typeof index !== 'number' || index < 0 || index > 8) return
 
-      // Validate it's this player's turn
-      const expectedPlayer = game.moves.length % 2 === 0 ? 'X' : 'O'
+      // Validate it's this player's turn (starting player alternates each round)
+      const firstPlayer = game.roundNumber % 2 === 0 ? 'X' : 'O'
+      const secondPlayer = firstPlayer === 'X' ? 'O' : 'X'
+      const expectedPlayer = game.moves.length % 2 === 0 ? firstPlayer : secondPlayer
       if (info.player !== expectedPlayer) return
 
       // Validate cell is empty
@@ -172,6 +176,7 @@ function handleMessage(ws: WebSocket, data: string, clientIp: string) {
       if (game.rematchVotes.size === 2) {
         game.moves = []
         game.rematchVotes.clear()
+        game.roundNumber++
         if (game.players.X) send(game.players.X, { type: 'rematch-accepted' })
         if (game.players.O) send(game.players.O, { type: 'rematch-accepted' })
       } else {

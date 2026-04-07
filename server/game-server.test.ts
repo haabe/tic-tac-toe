@@ -219,6 +219,45 @@ describe('game-server', () => {
     ws2.close()
   })
 
+  it('swaps starting player after rematch', async () => {
+    const ws1 = await connect()
+    const createPromise = waitForMessage(ws1)
+    sendMsg(ws1, { type: 'create' })
+    const createMsg = await createPromise
+    if (createMsg.type !== 'created') throw new Error('Expected created')
+
+    const ws2 = await connect()
+    const joinPromise = waitForMessage(ws2)
+    sendMsg(ws2, { type: 'join', code: createMsg.code })
+    await joinPromise
+    await waitForMessage(ws1) // opponent-joined
+
+    // Complete a rematch
+    sendMsg(ws1, { type: 'rematch' })
+    await waitForMessage(ws2) // rematch-requested
+    const accept1 = waitForMessage(ws1)
+    const accept2 = waitForMessage(ws2)
+    sendMsg(ws2, { type: 'rematch' })
+    await accept1
+    await accept2
+
+    // After rematch, O should go first (round 1)
+    // O makes a move — should be relayed to X
+    const movePromise = waitForMessage(ws1)
+    sendMsg(ws2, { type: 'move', index: 4 })
+    const moveMsg = await movePromise
+    expect(moveMsg).toEqual({ type: 'move', index: 4, player: 'O' })
+
+    // X makes a move — should be relayed to O
+    const movePromise2 = waitForMessage(ws2)
+    sendMsg(ws1, { type: 'move', index: 0 })
+    const moveMsg2 = await movePromise2
+    expect(moveMsg2).toEqual({ type: 'move', index: 0, player: 'X' })
+
+    ws1.close()
+    ws2.close()
+  })
+
   it('rate limits join attempts', async () => {
     const ws = await connect()
 
