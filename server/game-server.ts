@@ -209,6 +209,13 @@ export function createGameServer(wss: WebSocketServer) {
   // Cleanup expired games every 30 seconds
   const cleanupInterval = setInterval(cleanupExpiredGames, 30000)
 
+  // Ping all clients every 30s to keep connections alive (prevents Render free tier sleep)
+  const pingInterval = setInterval(() => {
+    wss.clients.forEach((ws) => {
+      if (ws.readyState === WebSocket.OPEN) ws.ping()
+    })
+  }, 30000)
+
   wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
     const clientIp = getClientIp(req)
 
@@ -223,6 +230,7 @@ export function createGameServer(wss: WebSocketServer) {
 
   return {
     close() {
+      clearInterval(pingInterval)
       clearInterval(cleanupInterval)
       games.clear()
       socketToGame.clear()

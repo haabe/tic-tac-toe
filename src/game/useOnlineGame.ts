@@ -26,19 +26,30 @@ export function useOnlineGame() {
     return `${proto}//${window.location.host}/ws`
   }, [])
 
-  const connectAndSend = useCallback((msg: object): Promise<WebSocket> => {
+  const connectAndSend = useCallback((msg: object, retries = 3): Promise<WebSocket> => {
     return new Promise((resolve, reject) => {
-      const ws = new WebSocket(getWsUrl())
-      wsRef.current = ws
+      let attempt = 0
 
-      ws.onopen = () => {
-        ws.send(JSON.stringify(msg))
-        resolve(ws)
+      function tryConnect() {
+        const ws = new WebSocket(getWsUrl())
+        wsRef.current = ws
+
+        ws.onopen = () => {
+          ws.send(JSON.stringify(msg))
+          resolve(ws)
+        }
+        ws.onerror = () => {
+          attempt++
+          if (attempt < retries) {
+            setTimeout(tryConnect, 2000)
+          } else {
+            setState({ phase: 'error', message: 'Connection failed. Please try again.' })
+            reject()
+          }
+        }
       }
-      ws.onerror = () => {
-        setState({ phase: 'error', message: 'Connection failed' })
-        reject()
-      }
+
+      tryConnect()
     })
   }, [getWsUrl])
 

@@ -6,11 +6,13 @@ COPY . .
 RUN npm run build
 
 FROM node:22-slim
-WORKDIR /app
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/dist-server ./dist-server
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package.json ./
-EXPOSE 3000
-ENV PORT=3000
+RUN useradd -m -u 1000 user
+USER user
+WORKDIR /home/user/app
+COPY --from=build --chown=user /app/dist ./dist
+COPY --from=build --chown=user /app/dist-server ./dist-server
+COPY --from=build --chown=user /app/node_modules ./node_modules
+COPY --from=build --chown=user /app/package.json ./
+EXPOSE 7860
+ENV PORT=7860
 CMD ["node", "dist-server/index.js"]

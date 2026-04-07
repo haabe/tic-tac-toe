@@ -1,3 +1,12 @@
+---
+title: Tic Tac Toe
+emoji: ⭕
+colorFrom: purple
+colorTo: red
+sdk: docker
+app_port: 7860
+---
+
 # Mycelium
 
 **Theory-guided agentic product development for Claude Code.**
