@@ -283,6 +283,37 @@
   }
 }
 
+.scoreboard {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: var(--cell-bg);
+  border: 2px solid var(--cell-border);
+}
+
+.score.x {
+  color: var(--x-color);
+}
+
+.score.o {
+  color: var(--o-color);
+}
+
+.score-divider {
+  opacity: 0.3;
+  font-weight: 400;
+}
+
 .rematch-section {
   display: flex;
   flex-direction: column;

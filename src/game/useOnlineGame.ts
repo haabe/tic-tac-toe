@@ -18,6 +18,7 @@ export function useOnlineGame() {
   const [board, setBoard] = useState<Board>(createEmptyBoard)
   const [rematchRequested, setRematchRequested] = useState(false)
   const [opponentWantsRematch, setOpponentWantsRematch] = useState(false)
+  const [roundNumber, setRoundNumber] = useState(0)
 
   const getWsUrl = useCallback(() => {
     // In dev mode, Vite proxies /ws to the game server
@@ -97,6 +98,7 @@ export function useOnlineGame() {
           setBoard(createEmptyBoard())
           setRematchRequested(false)
           setOpponentWantsRematch(false)
+          setRoundNumber(prev => prev + 1)
           break
         case 'expired':
           setState({ phase: 'error', message: 'Game code expired' })
@@ -174,6 +176,7 @@ export function useOnlineGame() {
     board,
     rematchRequested,
     opponentWantsRematch,
+    roundNumber,
     createGame,
     joinGame,
     sendMove,

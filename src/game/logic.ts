@@ -19,7 +19,7 @@ export function makeMove(board: Board, index: number, player: Player): Board {
   return newBoard
 }
 
-export function getGameStatus(board: Board): GameStatus {
+export function getGameStatus(board: Board, firstPlayer: Player = 'X'): GameStatus {
   for (const line of WINNING_LINES) {
     const [a, b, c] = line
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
@@ -31,8 +31,9 @@ export function getGameStatus(board: Board): GameStatus {
     return { state: 'draw' }
   }
 
+  const secondPlayer: Player = firstPlayer === 'X' ? 'O' : 'X'
   const moveCount = board.filter(cell => cell !== null).length
-  const currentPlayer: Player = moveCount % 2 === 0 ? 'X' : 'O'
+  const currentPlayer: Player = moveCount % 2 === 0 ? firstPlayer : secondPlayer
   return { state: 'playing', currentPlayer }
 }
 

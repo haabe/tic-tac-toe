@@ -6,6 +6,19 @@ import type { Board, Player } from './game/types'
 import './App.css'
 
 type GameMode = 'menu' | 'cpu' | 'local' | 'online'
+type Score = { X: number; O: number; draws: number }
+
+const INITIAL_SCORE: Score = { X: 0, O: 0, draws: 0 }
+
+function Scoreboard({ score }: { score: Score }) {
+  return (
+    <div className="scoreboard" aria-label={`Score: X ${score.X}, O ${score.O}, Draws ${score.draws}`}>
+      <div className="score x">❌ {score.X}</div>
+      <div className="score-divider">-</div>
+      <div className="score o">⭕ {score.O}</div>
+    </div>
+  )
+}
 
 function App() {
   const [mode, setMode] = useState<GameMode>('menu')
@@ -41,8 +54,11 @@ function CpuGame({ onBack }: { onBack: () => void }) {
   const [board, setBoard] = useState<Board>(createEmptyBoard)
   const [difficulty, setDifficulty] = useState<Difficulty>('easy')
   const [cpuThinking, setCpuThinking] = useState(false)
+  const [score, setScore] = useState<Score>(INITIAL_SCORE)
+  const [roundNumber, setRoundNumber] = useState(0)
 
-  const status = getGameStatus(board)
+  const firstPlayer: Player = roundNumber % 2 === 0 ? 'X' : 'O'
+  const status = getGameStatus(board, firstPlayer)
   const gameOver = status.state !== 'playing'
   const isPlayerTurn = status.state === 'playing' && status.currentPlayer === 'X'
 
@@ -65,8 +81,24 @@ function CpuGame({ onBack }: { onBack: () => void }) {
     }
   }, [status, difficulty])
 
+  useEffect(() => {
+    if (status.state === 'won') {
+      setScore(prev => ({ ...prev, [status.winner]: prev[status.winner] + 1 }))
+    } else if (status.state === 'draw') {
+      setScore(prev => ({ ...prev, draws: prev.draws + 1 }))
+    }
+  }, [status.state, status.state === 'won' ? status.winner : null])
+
   const handlePlayAgain = useCallback(() => {
     setBoard(createEmptyBoard())
+    setRoundNumber(prev => prev + 1)
+  }, [])
+
+  const handleChangeDifficulty = useCallback((d: Difficulty) => {
+    setDifficulty(d)
+    setBoard(createEmptyBoard())
+    setScore(INITIAL_SCORE)
+    setRoundNumber(0)
   }, [])
 
   const winningLine = status.state === 'won' ? status.winningLine : []
@@ -97,18 +129,20 @@ function CpuGame({ onBack }: { onBack: () => void }) {
         <button
           className="difficulty-btn"
           aria-pressed={difficulty === 'easy'}
-          onClick={() => { setDifficulty('easy'); setBoard(createEmptyBoard()) }}
+          onClick={() => handleChangeDifficulty('easy')}
         >
           😊 Easy
         </button>
         <button
           className="difficulty-btn"
           aria-pressed={difficulty === 'hard'}
-          onClick={() => { setDifficulty('hard'); setBoard(createEmptyBoard()) }}
+          onClick={() => handleChangeDifficulty('hard')}
         >
           🧠 Hard
         </button>
       </div>
+
+      <Scoreboard score={score} />
 
       <div
         className={`status ${status.state}`}
@@ -137,8 +171,11 @@ function CpuGame({ onBack }: { onBack: () => void }) {
 
 function LocalGame({ onBack }: { onBack: () => void }) {
   const [board, setBoard] = useState<Board>(createEmptyBoard)
+  const [score, setScore] = useState<Score>(INITIAL_SCORE)
+  const [roundNumber, setRoundNumber] = useState(0)
 
-  const status = getGameStatus(board)
+  const firstPlayer: Player = roundNumber % 2 === 0 ? 'X' : 'O'
+  const status = getGameStatus(board, firstPlayer)
   const gameOver = status.state !== 'playing'
   const winningLine = status.state === 'won' ? status.winningLine : []
 
@@ -146,6 +183,19 @@ function LocalGame({ onBack }: { onBack: () => void }) {
     if (status.state !== 'playing' || board[index] !== null) return
     setBoard(prev => makeMove(prev, index, status.currentPlayer))
   }, [status, board])
+
+  useEffect(() => {
+    if (status.state === 'won') {
+      setScore(prev => ({ ...prev, [status.winner]: prev[status.winner] + 1 }))
+    } else if (status.state === 'draw') {
+      setScore(prev => ({ ...prev, draws: prev.draws + 1 }))
+    }
+  }, [status.state, status.state === 'won' ? status.winner : null])
+
+  const handlePlayAgain = useCallback(() => {
+    setBoard(createEmptyBoard())
+    setRoundNumber(prev => prev + 1)
+  }, [])
 
   const statusText = (() => {
     switch (status.state) {
@@ -167,6 +217,8 @@ function LocalGame({ onBack }: { onBack: () => void }) {
     <>
       <button className="back-btn" onClick={onBack} aria-label="Back to menu">← Back</button>
 
+      <Scoreboard score={score} />
+
       <div
         className={`status ${status.state}`}
         role="status"
@@ -184,7 +236,7 @@ function LocalGame({ onBack }: { onBack: () => void }) {
       />
 
       {gameOver && (
-        <button className="play-again" onClick={() => setBoard(createEmptyBoard())} autoFocus>
+        <button className="play-again" onClick={handlePlayAgain} autoFocus>
           🔄 Play Again
         </button>
       )}
@@ -196,16 +248,27 @@ function OnlineGame({ onBack }: { onBack: () => void }) {
   const {
     state, board, rematchRequested, opponentWantsRematch,
     createGame, joinGame, sendMove, requestRematch, disconnect,
+    roundNumber,
   } = useOnlineGame()
   const [joinCode, setJoinCode] = useState('')
+  const [score, setScore] = useState<Score>(INITIAL_SCORE)
 
-  const status = getGameStatus(board)
+  const firstPlayer: Player = roundNumber % 2 === 0 ? 'X' : 'O'
+  const status = getGameStatus(board, firstPlayer)
   const gameOver = status.state !== 'playing'
 
   const handleBack = useCallback(() => {
     disconnect()
     onBack()
   }, [disconnect, onBack])
+
+  useEffect(() => {
+    if (status.state === 'won') {
+      setScore(prev => ({ ...prev, [status.winner]: prev[status.winner] + 1 }))
+    } else if (status.state === 'draw') {
+      setScore(prev => ({ ...prev, draws: prev.draws + 1 }))
+    }
+  }, [status.state, status.state === 'won' ? status.winner : null])
 
   if (state.phase === 'idle' || state.phase === 'error') {
     return (
@@ -307,6 +370,8 @@ function OnlineGame({ onBack }: { onBack: () => void }) {
       <div className="player-badge" aria-label={`You are ${myPlayer}`}>
         You are <span className={myPlayer.toLowerCase()}>{myPlayer}</span>
       </div>
+
+      <Scoreboard score={score} />
 
       <div
         className={`status ${status.state} ${state.phase === 'disconnected' ? 'error' : ''}`}

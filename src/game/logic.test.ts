@@ -48,6 +48,17 @@ describe('getGameStatus', () => {
     expect(status).toEqual({ state: 'playing', currentPlayer: 'O' })
   })
 
+  it('returns O as first player when specified', () => {
+    const status = getGameStatus(createEmptyBoard(), 'O')
+    expect(status).toEqual({ state: 'playing', currentPlayer: 'O' })
+  })
+
+  it('returns X after O moves when O starts first', () => {
+    const board = makeMove(createEmptyBoard(), 0, 'O')
+    const status = getGameStatus(board, 'O')
+    expect(status).toEqual({ state: 'playing', currentPlayer: 'X' })
+  })
+
   it('detects a row win', () => {
     const board: Board = ['X', 'X', 'X', 'O', 'O', null, null, null, null]
     const status = getGameStatus(board)
