@@ -50,3 +50,10 @@ Chronological log of product decisions, insights, and pivots.
 - **Evidence**: User validation, 27 passing tests, clean build
 - **Impact**: First Mycelium validation point — the framework guided a clean delivery without feeling like overhead. Moving to the core value prop: online 2-player.
 
+### 2026-04-07 - Mycelium V1 Retrospective
+- **Diamond**: All (L0 through L4, complete)
+- **Type**: insight
+- **Summary**: Full Mycelium validation retrospective with user feedback. Process worked well — structured interview, canvas, diamonds, and delivery flow was smooth. Framework surfaced real decisions (WebSocket vs WebRTC, hosting, optimistic UI bug) naturally. However, the UX of the framework itself is a problem: diamond scale names (L0-L5), phase names (Discover/Define/Develop/Deliver), and theory gate jargon left the user feeling "in the blind." User couldn't tell where in the process they were, whether we were iterating or moving forward, or what came next. Key improvement: replace cryptic naming with plain language, and always show a "you are here" status in human-readable terms.
+- **Evidence**: Direct user feedback during retrospective
+- **Impact**: Mycelium works as a decision-guiding system but needs a UX pass on all user-facing terminology and status communication. The framework's value is in guiding decisions, not its taxonomy.
+
