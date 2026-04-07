@@ -2,19 +2,14 @@
 # Tracks all currently active diamonds across all scales.
 # Updated by /diamond-progress and /diamond-assess skills.
 
-# Diamonds are created when:
-# - /interview completes (creates L0)
-# - A parent diamond spawns a child (e.g., L0 -> L1)
-# - A user explicitly starts a new diamond
-
 active_diamonds:
   - id: "l0-purpose"
     scale: L0
-    phase: develop
+    phase: complete
     name: "Tic-Tac-Toe Purpose"
     parent_id: null
-    confidence: 0.6
-    evidence_type: anecdotal
+    confidence: 0.8
+    evidence_type: test-validated
     cynefin_domain: clear
     canvas_refs:
       - "canvas/purpose.yml"
@@ -34,17 +29,22 @@ active_diamonds:
         cynefin: pass
         bias: pass-adapted
         corrections: pass
-      develop_to_deliver: not-checked
-      deliver_to_complete: not-checked
-    notes: "L0 in Develop phase. Spawning L2 opportunity diamond. L1 Strategy skipped — solo personal project, no portfolio to manage (logged in decision log)."
+      develop_to_deliver:
+        evidence: pass
+        corrections: pass
+      deliver_to_complete:
+        evidence: pass
+        bvssh: pass
+        corrections: pass
+    notes: "Complete. All three game modes delivered: vs CPU, local 2-player, online 2-player. User validated. Purpose fulfilled."
 
   - id: "l2-remote-play"
     scale: L2
-    phase: develop
+    phase: complete
     name: "Remote Play Connection"
     parent_id: "l0-purpose"
-    confidence: 0.55
-    evidence_type: anecdotal
+    confidence: 0.8
+    evidence_type: test-validated
     cynefin_domain: complicated
     canvas_refs:
       - "canvas/opportunities.yml"
@@ -66,9 +66,14 @@ active_diamonds:
         bias: pass-adapted
         privacy: pass
         corrections: pass
-      develop_to_deliver: not-checked
-      deliver_to_complete: not-checked
-    notes: "Fast-tracked through Discover and Define — interview front-loaded discovery work. OST populated with 3 solutions. Now in Develop: spawning L3 solution diamond for vs CPU (first build target)."
+      develop_to_deliver:
+        evidence: pass
+        corrections: pass
+      deliver_to_complete:
+        evidence: pass
+        service_quality: pass
+        corrections: pass
+    notes: "Complete. All 3 solutions from OST delivered: vs CPU (ICE 8.0), online 2-player (ICE 7.0), local 2-player (ICE 7.7). Core JTBD addressed: stay connected through play when apart."
 
   - id: "l3-vs-cpu"
     scale: L3
@@ -76,34 +81,11 @@ active_diamonds:
     name: "vs CPU Game Mode"
     parent_id: "l2-remote-play"
     confidence: 0.8
-    evidence_type: anecdotal
+    evidence_type: test-validated
     cynefin_domain: clear
-    canvas_refs:
-      - "canvas/opportunities.yml"
-      - "canvas/services.yml"
     created_at: "2026-04-07"
     last_progressed: "2026-04-07"
-    theory_gates_status:
-      discover_to_define:
-        evidence: pass
-        four_risks: pass
-        cynefin: pass
-        bias: pass
-        corrections: pass
-      define_to_develop:
-        evidence: pass
-        four_risks: pass
-        cynefin: pass
-        bias: pass
-        privacy: pass
-        corrections: pass
-      develop_to_deliver:
-        evidence: pass
-        four_risks: pass
-        security: pass
-        corrections: pass
-      deliver_to_complete: not-checked
-    notes: "Complete. vs CPU delivered and user-validated. First full L3→L4 cycle through Mycelium."
+    notes: "Complete. vs CPU delivered and user-validated."
 
   - id: "l4-vs-cpu-impl"
     scale: L4
@@ -113,100 +95,44 @@ active_diamonds:
     confidence: 0.8
     evidence_type: test-validated
     cynefin_domain: clear
-    canvas_refs:
-      - "canvas/opportunities.yml"
-      - "canvas/dora-metrics.yml"
     created_at: "2026-04-07"
     last_progressed: "2026-04-07"
-    theory_gates_status:
-      discover_to_define:
-        evidence: pass
-        bias: pass
-        corrections: pass
-      define_to_develop:
-        evidence: pass
-        bias: pass
-        security: pass
-        corrections: pass
-      develop_to_deliver:
-        evidence: pass
-        security: pass
-        corrections: pass
-      deliver_to_complete:
-        evidence: pass
-        security: pass
-        dora: pass
-        corrections: pass
-    notes: "Complete. 27 tests passing, all acceptance criteria met, user validated ('It works fine!'). First full L4 diamond cycle through Mycelium."
+    notes: "Complete. 27 tests passing, all acceptance criteria met, user validated."
 
   - id: "l3-online-mp"
     scale: L3
-    phase: deliver
+    phase: complete
     name: "Online 2-Player with Secret Codes"
     parent_id: "l2-remote-play"
-    confidence: 0.6
-    evidence_type: data-supported
+    confidence: 0.8
+    evidence_type: test-validated
     cynefin_domain: complicated
-    canvas_refs:
-      - "canvas/opportunities.yml"
-      - "canvas/services.yml"
-      - "canvas/threat-model.yml"
     created_at: "2026-04-07"
     last_progressed: "2026-04-07"
-    theory_gates_status:
-      discover_to_define:
-        evidence: pass
-        four_risks: pass
-        bias: pass
-        corrections: pass
-      define_to_develop:
-        evidence: pass
-        four_risks: pass
-        cynefin: pass
-        bias: pass
-        privacy: pass
-        corrections: pass
-      develop_to_deliver:
-        evidence: pass
-        four_risks: pass
-        security: pass
-        corrections: pass
-      deliver_to_complete: not-checked
-    notes: "Architecture decided: WebSocket relay on Koyeb (Frankfurt), 6-digit numeric codes (5min expiry), in-memory state. Research-backed decisions on all 3 axes (comms, hosting, codes)."
+    notes: "Complete. WebSocket relay, 6-digit codes, rate limiting. Research-backed architecture. Bug found and fixed (optimistic UI update)."
 
   - id: "l4-online-mp-impl"
     scale: L4
-    phase: develop
+    phase: complete
     name: "Implement Online 2-Player"
     parent_id: "l3-online-mp"
-    confidence: 0.6
-    evidence_type: anecdotal
+    confidence: 0.8
+    evidence_type: test-validated
     cynefin_domain: complicated
-    canvas_refs:
-      - "canvas/opportunities.yml"
     created_at: "2026-04-07"
     last_progressed: "2026-04-07"
-    acceptance_criteria:
-      - "Player can create a game and receive a 6-digit code"
-      - "Second player can join by entering the code"
-      - "Moves sync in real-time via WebSocket"
-      - "Game displays waiting state while code is unjoined"
-      - "Code expires after 5 minutes with user feedback"
-      - "Disconnect shows message and 30s reconnect window"
-      - "Works on mobile and desktop"
-      - "No accounts, no data stored beyond the session"
-      - "Server deployable to Koyeb (Frankfurt)"
-      - "Rate limiting on code entry (5 attempts/IP/minute)"
-    theory_gates_status:
-      discover_to_define:
-        evidence: pass
-        corrections: pass
-      define_to_develop:
-        evidence: pass
-        security: pass
-        corrections: pass
-      develop_to_deliver: not-checked
-      deliver_to_complete: not-checked
-    notes: "Implementation complete. 38 total tests passing (9 server, 8 component, 21 game logic). WebSocket server with 6-digit codes, rate limiting, disconnect handling. Frontend with mode selector, create/join flow, real-time play, rematch. Dockerfile ready for Koyeb."
+    notes: "Complete. 38 total tests, all acceptance criteria met, user validated after bug fix."
+
+  - id: "l3-local-mp"
+    scale: L3
+    phase: complete
+    name: "Local 2-Player Mode"
+    parent_id: "l2-remote-play"
+    confidence: 0.9
+    evidence_type: test-validated
+    cynefin_domain: clear
+    created_at: "2026-04-07"
+    last_progressed: "2026-04-07"
+    notes: "Complete. Trivial addition once board and game logic existed. No separate L4 needed."
 
 last_updated: "2026-04-07"
